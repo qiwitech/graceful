@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package testservice;
+
+message ReqSet {
+	string str = 1;
+	uint64 num = 2;
+}
+
+message RespSet {
+	Info info = 1;
+	string upper = 2;
+	uint64 mod7 = 3;
+}
+
+message ReqWait {
+	int64 duration = 1;
+}
+
+message Info {
+	int32 code = 1;
+	string error = 2;
+	int64 total_time_ns = 3;
+}
+
+message Empty {
+}
+
+service SrvSetter {
+	rpc Set(ReqSet) returns(RespSet);
+}
+
+service SrvWaiter {
+	rpc Wait(ReqWait) returns(Empty);
+}

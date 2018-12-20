@@ -1,0 +1,14 @@
+language: go
+go:
+- 1.9
+before_install:
+- git config --global url."https://outself:67591c49d91f80ff008372be6b86c59503429994@github.com/".insteadOf "https://github.com/"
+install:
+- go get -t ./...
+before_script:
+- go vet ./...
+script:
+- go test -short -race ./...
+notifications:
+  slack: "rndcenter:OWFX6UudpOXxU5WKBP8obiuR"
+  email: false
