@@ -7,9 +7,9 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var testObjs = []interface{}{
-	&test.NidOptNative{},
-	&test.NidOptNative{
+var testObjs = []*test.NidOptNative{
+	{},
+	{
 		Field1:  -123,
 		Field14: "dsfasdfasdf",
 	},
@@ -34,7 +34,16 @@ func TestProtoMarshalTo(t *testing.T) {
 			req = &test.NidOptNative{}
 		}
 
+		req.XXX_sizecache = 0
+		req.XXX_unrecognized = nil
+		req2.XXX_sizecache = 0
+		req2.XXX_unrecognized = nil
+
 		assert.Equal(t, req, &req2, "data: %x, test: %v", buf, req)
+
+		if t.Failed() {
+			break
+		}
 	}
 }
 
@@ -53,7 +62,16 @@ func TestProtoMarshal(t *testing.T) {
 			req = &test.NidOptNative{}
 		}
 
+		req.XXX_sizecache = 0
+		req.XXX_unrecognized = nil
+		req2.XXX_sizecache = 0
+		req2.XXX_unrecognized = nil
+
 		assert.Equal(t, req, &req2, "data: %x", buf)
+
+		if t.Failed() {
+			break
+		}
 	}
 }
 
@@ -76,6 +94,10 @@ func TestJSONMarshalTo(t *testing.T) {
 		}
 
 		assert.Equal(t, req, &req2, "data: %x", buf)
+
+		if t.Failed() {
+			break
+		}
 	}
 }
 
@@ -95,5 +117,9 @@ func TestJSONMarshal(t *testing.T) {
 		}
 
 		assert.Equal(t, req, &req2, "data: %x", buf)
+
+		if t.Failed() {
+			break
+		}
 	}
 }

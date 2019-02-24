@@ -20,9 +20,9 @@ func (*Account) ProtoMessage()               {}
 func (*Account) Descriptor() ([]byte, []int) { return fileDescriptorApi, []int{20} }
 
 // 	proto.Marshaler
-func (a Account) Marshal() ([]byte, error) {
+func (a *Account) Marshal() ([]byte, error) {
 	b := make([]byte, 8)
-	binary.LittleEndian.PutUint64(b, uint64(a))
+	binary.LittleEndian.PutUint64(b, uint64(*a))
 	return b, nil
 }
 
@@ -34,8 +34,8 @@ func (a *Account) Unmarshal(b []byte) error {
 }
 
 // json.Marshaler
-func (a Account) MarshalJSON() ([]byte, error) {
-	str := `"` + strconv.FormatUint(uint64(a), 16) + `"`
+func (a *Account) MarshalJSON() ([]byte, error) {
+	str := `"` + strconv.FormatUint(uint64(*a), 16) + `"`
 	return []byte(str), nil
 }
 
@@ -63,6 +63,10 @@ func (a *Account) Validate() error {
 	return nil
 }
 
+func (a *Account) Size() int {
+	return 8
+}
+
 // Hash
 
 type Hash string
@@ -73,8 +77,8 @@ func (*Hash) ProtoMessage()               {}
 func (*Hash) Descriptor() ([]byte, []int) { return fileDescriptorApi, []int{20} }
 
 // 	proto.Marshaler
-func (h Hash) Marshal() ([]byte, error) {
-	return []byte(h), nil
+func (h *Hash) Marshal() ([]byte, error) {
+	return []byte(*h), nil
 }
 
 // proto.Unmarshaler
