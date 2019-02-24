@@ -29,7 +29,7 @@ func (a *Account) Marshal() ([]byte, error) {
 // proto.Unmarshaler
 func (a *Account) Unmarshal(b []byte) error {
 	i := binary.LittleEndian.Uint64(b)
-	a = (*Account)(&i)
+	*a = Account(i)
 	return nil
 }
 
@@ -83,7 +83,7 @@ func (h *Hash) Marshal() ([]byte, error) {
 
 // proto.Unmarshaler
 func (h *Hash) Unmarshal(b []byte) error {
-	*h = Hash(b) //.(Hash)
+	*h = Hash(b)
 	return nil
 }
 
